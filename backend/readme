@@ -1,0 +1,79 @@
+-BCRYPT used for password hashing
+    >>  const bcrypt = require("bcrypt");
+
+        const password = "mySecretPassword";
+
+        // Hashing
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Comparing during login
+        const isMatch = await bcrypt.compare(password, hashedPassword);
+
+
+-CORS is the cross origin resource sharing-Allows your backend to accept requests from a different origin (e.g., frontend running on localhost:3000 and backend on localhost:5000).
+
+        >> app.use(cors({
+            origin: "http://localhost:3000", // frontend URL
+            credentials: true
+            }));
+        
+        >> const cors = require("cors");
+            app.use(cors()); // enable CORS for all routes
+
+-DOTENV Loads environment variables from a .env file into process.env. Used for not pushing certain data to github
+
+    >>const dbPassword = "MySuperSecretPassword123!";   (js)
+
+    >>(file .env)
+    
+        DB_PASSWORD=MySuperSecretPassword123!
+    
+    >> require('dotenv').config();             //in the code
+      const dbPassword = process.env.DB_PASSWORD;
+
+
+PRISMA is orm ( object relational mapping ) used to connect js and sql
+
+            db-medium
+            user_name-saatvik
+            password-saatvik
+
+            >>psql -U postgres
+
+            >>CREATE DATABASE project ;
+
+            >>Create user	- CREATE USER saatvik WITH PASSWORD 'saatvik';
+
+            >>Grant access to DB -	GRANT ALL PRIVILEGES ON DATABASE medium TO saatvik;
+
+            >>Change ownership	-ALTER TABLE users OWNER TO myuser;
+
+            >>Grant CREATEDB privilege to your user (saatvik):  ALTER USER saatvik CREATEDB;
+
+        >>psql -U sparsh -h localhost -p 5432 -d mydb (to enter db)
+
+PRISMA commands:-
+
+        Prisma Client is an auto-generated, type-safe JavaScript/TypeScript library used to interact with your database using Prisma.
+
+        prisma is a dev dependency i.e. it is needed while the process of  development not in the final project
+
+
+        >>npm install prisma --save-dev
+        >>npm install @prisma/client
+
+        >>npx prisma generate
+
+        Add the table model to schema.prisma and update the database_url in .env  file
+
+        >>npx prisma migrate dev --name initialising 
+         (for migration (to track changes over time)) 
+        migration helps to change the code to sql queries
+
+        NOTE- whenver a change in database (eg change in schema or adding new schema or model)is made we use the command of migration
+
+https://docs.google.com/presentation/d/1qhYA5CnmuyLedhwE4t9xFtaKGL69-j-7wvXvU5cBFFc/edit?slide=id.g35f354ed7a6_0_32&pli=1#slide=id.g35f354ed7a6_0_32
+
+google slides link for prisma
+
+        >>npx prisma studio (to open table)
