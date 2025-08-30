@@ -45,9 +45,37 @@ module.exports.getAllPosts=async (req,res)=>{
 
 }
 
+module.exports.getPostByUserId=async(req,res)=>{
+    const userId = req.userId;
+
+
+    try {
+        const posts = await prisma.post.findMany({
+            where: { authorId: userId },
+            include: { author: { select: { id: true, username: true } } },
+            orderBy: { createdAt: 'desc' } // Add sorting
+        });
+
+        res.json(posts);
+        // res.status(200).json({
+        //     success: true,
+        //     data: posts || [] // Always return array
+        // });
+    
+
+    }catch(err){
+        res.json({
+            message:"can not access Posts by user",
+            error:err
+        })
+    }
+}
+
 module.exports.getPostById=async(req,res) =>{
     const id = Number(req.params.id);  
-
+    
+    // findUnique only works when the field is marked as @unique or is the primary key.
+    
     try{
        const post=await prisma.post.findUnique({where:{id}});
        if (!post) return res.status(404).json({message:"Not Found"});
@@ -56,7 +84,7 @@ module.exports.getPostById=async(req,res) =>{
     }catch(err){
         res.json(
             {
-                msg:"id not found",
+                msg:"Cannot find the ID",
                 error:err
             }
         )

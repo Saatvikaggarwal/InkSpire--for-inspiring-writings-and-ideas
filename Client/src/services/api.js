@@ -10,7 +10,8 @@ export const api = createApi({
         },
         credentials: 'include',
     }),
-    tagTypes: ['Post', 'User'],
+
+    tagTypes: ['Post', 'User'],  //use to make cache under the tags provided
     endpoints: (builder) => ({
 
         // signup: builder.mutation({
@@ -22,15 +23,21 @@ export const api = createApi({
         //     invalidatesTags: ['User'],
         // }),
 
-        // fetchUser: builder.query({
-        //     query: () => '/auth/me',
-        //     providesTags: ['User'],
-        // }),
+        fetchUser: builder.query({
+            query: () => '/auth/me',
+            providesTags: ['User'],
+        }),
         
         fetchPosts: builder.query({
             query: () => '/post',
             providesTags: ['Post'],
         }),
+
+        fetchPostsByUserId: builder.query ({
+            query: ()=>`/post/user`,
+            providesTags:["Post"],
+        }),
+
         createPost: builder.mutation({
             query: (post) => ({ url: '/post', method: 'POST', body: post }),
             invalidatesTags: ['Post'],
@@ -41,8 +48,10 @@ export const api = createApi({
             invalidatesTags: ["Post"]
 
         })
+        
+
         // deletePost: builder.mutation({
-        //     query: (id) => ({ url: `/posts/${id}`, method: 'DELETE' }),
+        //     query: (id) => ({ url: `/post/${id}`, method: 'DELETE' }),
         //     invalidatesTags: ['Posts'],
         // }),
     }),
@@ -51,8 +60,9 @@ export const api = createApi({
 export const {
     // useSignupMutation,
     // useLoginMutation,
-    // useFetchUserQuery,
+    useFetchUserQuery,
     useFetchPostsQuery,
+    useFetchPostsByUserIdQuery,
     useCreatePostMutation,
     // useDeletePostMutation,
     useEditPostMutation       

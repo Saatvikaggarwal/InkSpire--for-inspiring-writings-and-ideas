@@ -7,36 +7,36 @@ import Adminportal from './pages/Adminportal'
 import NewPost from './pages/NewPost'
 import EditPost from './pages/EditPost'
 import Navbar from './components/Navbar'
-// import { useFetchUserQuery } from './services/api'
-// import PublicRoute from './components/PublicRoute'
-// import PrivateRoute from './components/PrivateRoute'
+import { useFetchUserQuery } from './services/api'
+import PublicRoute from './components/PublicRoute'
+import PrivateRoute from './components/PrivateRoute'
 
 
 
 const App = () => {
-  // const {data,isLoading,isError}=useFetchUserQuery();
+  const {data,isLoading,isError}=useFetchUserQuery();
    
   return (
     <div>
       <Navbar></Navbar>
       <Routes>
         
-        {/* <Route element={<PublicRoute/>}> */}
+        <Route element={<PublicRoute/>}>
         
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
 
-        {/* </Route> */}
+        </Route>
 
-        {/* <Route element={<PrivateRoute/>}> */}
+        <Route element={<PrivateRoute/>}>
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<Adminportal />} />
           <Route path="/admin/new" element={<NewPost />} />
           <Route path="/admin/edit/:id" element={<EditPost />} />
 
-        {/* </Route> */}
+        </Route>
         
       </Routes>
     </div>

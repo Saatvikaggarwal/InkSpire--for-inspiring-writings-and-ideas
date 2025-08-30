@@ -17,6 +17,7 @@ const api=axios.create({
 
 // export const fetchPosts=()=>api.get('/');
 export const fetchPost=(id)=>api.get(`/${id}`);
+// export const fetchPostByUserID=()=>api.get("/user");
 // export const createPost=({title,content})=>api.post('/',{title,content});
 // export const updatePost = (id,title,content) => api.put(`/${id}`, {title,content});
 export const deletePost = (id) => api.delete(`/${id}`);

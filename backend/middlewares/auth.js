@@ -3,6 +3,8 @@ const jwt=require("jsonwebtoken");
 
 module.exports=function(req,res,next){
     const token=req.cookies.token;
+    
+
     if (!token) return res.status(404).json({
         message: "Authentication Failed"
     })
