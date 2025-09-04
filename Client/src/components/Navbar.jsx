@@ -8,7 +8,7 @@ const Navbar = () => {
     
     return (
         <nav className="navbar">
-            <h2 className="logo">MyApp</h2>
+            <h2 className="logo">InkSpire</h2>
             <ul className="nav-links">
                 
                 {user?

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useFetchPostsByUserIdQuery, useFetchPostsQuery, useFetchUserQuery } from '../services/api';
+import {useDeletePostMutation, useFetchPostsByUserIdQuery, useFetchPostsQuery, useFetchUserQuery } from '../services/api';
 import Loader from '../components/Loader';
 import './Adminportal.css';
 
@@ -15,6 +15,16 @@ const Adminportal = () => {
   const routeToPost = () => {
     navigate("/admin/new");
   };
+
+  const [delPost]=useDeletePostMutation();
+  async function deletePost(id){
+    try{
+      await delPost(id);
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
 
   return (
     <div className="admin-container">
@@ -33,7 +43,7 @@ const Adminportal = () => {
               </div>
               <div className="btn-group">
                 <button className="edit-btn" onClick={() => navigate(`/admin/edit/${p.id}`)}>Edit</button>
-                <button className="delete-btn" >Delete</button>
+                <button className="delete-btn" onClick={()=>deletePost(p.id)} >Delete</button>
               </div>
             </li>
           ))}

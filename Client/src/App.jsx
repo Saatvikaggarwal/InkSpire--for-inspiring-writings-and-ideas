@@ -10,6 +10,7 @@ import Navbar from './components/Navbar'
 import { useFetchUserQuery } from './services/api'
 import PublicRoute from './components/PublicRoute'
 import PrivateRoute from './components/PrivateRoute'
+import ShowPost from './pages/ShowPost'
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/admin" element={<Adminportal />} />
           <Route path="/admin/new" element={<NewPost />} />
           <Route path="/admin/edit/:id" element={<EditPost />} />
+          <Route path='/dashboard/show/:id' element={<ShowPost/>}/>
 
         </Route>
         

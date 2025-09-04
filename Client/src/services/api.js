@@ -39,7 +39,7 @@ export const api = createApi({
         }),
 
         createPost: builder.mutation({
-            query: (post) => ({ url: '/post', method: 'POST', body: post }),
+            query: (formData) => ({ url: '/post', method: 'POST', body: formData }),
             invalidatesTags: ['Post'],
         }),
 
@@ -47,13 +47,12 @@ export const api = createApi({
             query : ({id,title,content})=>({url: `/post/${id}`, method:"PUT", body :{title,content}}),
             invalidatesTags: ["Post"]
 
-        })
-        
+        }),
 
-        // deletePost: builder.mutation({
-        //     query: (id) => ({ url: `/post/${id}`, method: 'DELETE' }),
-        //     invalidatesTags: ['Posts'],
-        // }),
+        deletePost: builder.mutation({
+            query: (id) => ({ url: `/post/${id}`, method: 'DELETE' }),
+            invalidatesTags: ['Post'],
+        }),
     }),
 });
 
@@ -64,6 +63,6 @@ export const {
     useFetchPostsQuery,
     useFetchPostsByUserIdQuery,
     useCreatePostMutation,
-    // useDeletePostMutation,
+    useDeletePostMutation,
     useEditPostMutation       
 } = api;

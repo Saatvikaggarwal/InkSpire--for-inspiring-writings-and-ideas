@@ -6,8 +6,10 @@ const cors=require("cors");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
+
 const { PrismaClient } = require("../backend/generated/prisma");
 const prisma = new PrismaClient();
+
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -18,6 +20,7 @@ app.use(cors({
   origin:"http://localhost:5173",
   credentials:true,
 }))
+
 
 // /api/auth
 app.use("/api/auth",require("./routes/auth"));

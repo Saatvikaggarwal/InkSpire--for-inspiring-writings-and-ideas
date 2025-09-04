@@ -3,13 +3,17 @@ const prisma=new PrismaClient();
 
 module.exports.createPost=async function (req,res) {
     const { title, content } = req.body;
-    console.log(title,content);
+    
+    const imgURL=req.file?.path;
+
+
+    console.log(imgURL);
     try{
         // const { title, content } = req.body;
         // console.log()
 
         const post = await prisma.post.create({
-            data: { title, content, authorId: req.userId }
+            data: { title, content, authorId: req.userId, ...(imgURL && { imageUrl: imgURL }) }
         })
 
         res.status(200).json({
