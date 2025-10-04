@@ -1,0 +1,119 @@
+/* Floating chat button */
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.chat-button:hover {
+    transform: scale(1.1);
+    background: #5848d6;
+}
+
+/* Popup overlay */
+.chat-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+/* Popup window */
+.chat-popup {
+    background: white;
+    padding: 16px;
+    width: 420px;
+    height: 520px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    animation: slideUp 0.3s ease-in-out;
+}
+
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #444;
+}
+
+.close-btn:hover {
+    color: #e74c3c;
+}
+
+/* Response display */
+.response-display {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 30px;
+    padding: 8px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+/* Textarea input */
+textarea {
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+/* Submit button */
+button[type="submit"] {
+    margin-top: 10px;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: #5848d6;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

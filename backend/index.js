@@ -28,6 +28,10 @@ app.use("/api/auth",require("./routes/auth"));
 // /api/post
 app.use("/api/post",require("./routes/post"));
 
+// /api/gemini
+
+app.use("/api/gemini",require("./routes/gemini"));
+
 app.get("/api/auth/me", async (req,res)=>{
       const token=req.cookies.token;
       if (!token) return res.status(404).json({

@@ -11,11 +11,12 @@ import { useFetchUserQuery } from './services/api'
 import PublicRoute from './components/PublicRoute'
 import PrivateRoute from './components/PrivateRoute'
 import ShowPost from './pages/ShowPost'
+import AiBot from './components/AiBot'
 
 
 
 const App = () => {
-  const {data,isLoading,isError}=useFetchUserQuery();
+  const {data:user,isLoading,isError}=useFetchUserQuery();
    
   return (
     <div>
@@ -30,8 +31,10 @@ const App = () => {
 
         </Route>
 
-        <Route element={<PrivateRoute/>}>
+        
 
+        <Route element={<PrivateRoute/>}>
+          
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<Adminportal />} />
           <Route path="/admin/new" element={<NewPost />} />
@@ -41,6 +44,9 @@ const App = () => {
         </Route>
         
       </Routes>
+
+      {user? <AiBot></AiBot>:""}
+      
     </div>
   )
 }
