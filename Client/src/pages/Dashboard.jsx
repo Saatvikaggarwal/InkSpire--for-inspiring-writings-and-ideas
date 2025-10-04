@@ -1,8 +1,9 @@
-import React from 'react'
-import { useFetchPostsQuery } from '../services/api';
-import Loader from '../components/Loader';
-import { useNavigate } from 'react-router-dom';
-import './Dashboard.css'; // ✅ Import CSS
+import React from "react";
+import { useFetchPostsQuery } from "../services/api";
+import Loader from "../components/Loader";
+import LikeButton from "../components/LikeButton";
+import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const { data, isLoading, isError } = useFetchPostsQuery();
@@ -15,21 +16,29 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <h1 className="dashboard-title">📚 All Posts</h1>
       <ul className="post-list">
-        {data?.map((p) => (
-          <li
-            key={p.id}
-            className="post-item"
-            onClick={() => navigate(`/dashboard/show/${p.id}`)}
-          >
-            <div className="post-info">
-              <h3 className="post-title">{p.title}</h3>
-              <p className="post-author">by {p.author.username}</p>
+        {data?.map((post) => (
+          <li key={post.id} className="post-item">
+            <div
+              className="post-info"
+              onClick={() => navigate(`/dashboard/show/${post.id}`)}
+            >
+              <h3 className="post-title">{post.title}</h3>
+              <p className="post-author">by {post.author.username}</p>
+            </div>
+
+            {/* Like button */}
+            <div
+              className="like-button-wrapper"
+              // Stop click propagation so it doesn't trigger navigation
+              onClick={(e) => e.stopPropagation()}
+            >
+              <LikeButton postId={post.id} />
             </div>
           </li>
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
 export default Dashboard;

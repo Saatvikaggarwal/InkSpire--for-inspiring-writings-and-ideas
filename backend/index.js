@@ -32,6 +32,11 @@ app.use("/api/post",require("./routes/post"));
 
 app.use("/api/gemini",require("./routes/gemini"));
 
+//  /api/like
+
+app.use("/api/like",require("./routes/like"));
+
+//fetch authentication using jwt
 app.get("/api/auth/me", async (req,res)=>{
       const token=req.cookies.token;
       if (!token) return res.status(404).json({

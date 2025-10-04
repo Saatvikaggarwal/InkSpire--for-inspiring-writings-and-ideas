@@ -1,0 +1,21 @@
+.like-button {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+}
+
+.heart {
+    font-size: 22px;
+    color: gray;
+    /* default color */
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.heart:hover {
+    transform: scale(1.2);
+}
+
+.heart.liked {
+    color: red;
+    /* color when liked */
+}

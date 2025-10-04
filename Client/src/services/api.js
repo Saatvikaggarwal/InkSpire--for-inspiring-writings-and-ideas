@@ -11,7 +11,7 @@ export const api = createApi({
         credentials: 'include',
     }),
 
-    tagTypes: ['Post', 'User'],  //use to make cache under the tags provided
+    tagTypes: ['Post', 'User','Like'],  //use to make cache under the tags provided
     endpoints: (builder) => ({
 
         // signup: builder.mutation({
@@ -64,5 +64,6 @@ export const {
     useFetchPostsByUserIdQuery,
     useCreatePostMutation,
     useDeletePostMutation,
-    useEditPostMutation       
+    useEditPostMutation,
+         
 } = api;

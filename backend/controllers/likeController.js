@@ -1,14 +1,35 @@
 const {PrismaClient}=require("../generated/prisma");
 const prisma=new PrismaClient();
 
+module.exports.isLikedByUser=async function(req,res){
+    const userId = req.userId;   
+    const postId = Number(req.params.postId);
+
+    try {
+        const existing = await prisma.like.findUnique({
+            where: { userId_postId: { userId, postId } },
+        });
+
+        res.json({ liked: !!existing });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error checking like status" });
+    }
+};
+
+
 module.exports.toggleLike=async function(req,res){
     const userId=req.userId;
     const postId = Number(req.params.postId);
+
+    // console.log("inside like controller");
 
     try{
         const existing = await prisma.like.findUnique({
             where: { userId_postId: { userId, postId } },
         });
+        
+        // console.log(existing);
 
         if (existing) {  //unlike
             await prisma.like.delete({ where: { id: existing.id } });

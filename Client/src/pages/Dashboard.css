@@ -57,3 +57,8 @@
     color: #777;
     margin-top: 6px;
 }
+
+.like-button-wrapper {
+    margin-top: 8px;
+    display: inline-block;
+}

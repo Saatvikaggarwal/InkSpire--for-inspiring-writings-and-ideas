@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import {useDeletePostMutation, useFetchPostsByUserIdQuery, useFetchPostsQuery, useFetchUserQuery } from '../services/api';
 import Loader from '../components/Loader';
 import './Adminportal.css';
+import { useState } from 'react';
 
 const Adminportal = () => {
   const navigate = useNavigate();
+  const [likeCnt,setLikeCnt]=useState(0); 
   
   const { data: userResponse, isLoading: isUserLoading, isError: isUserError } = useFetchUserQuery();
   const username = userResponse.user.username;
@@ -40,6 +42,7 @@ const Adminportal = () => {
               <div className='post-content'>
                 <span className="post-title">{p.title}</span>
                 {/* <span className="post-author">{p.author.username}</span> */}
+                <span> likes {likeCnt}</span>
               </div>
               <div className="btn-group">
                 <button className="edit-btn" onClick={() => navigate(`/admin/edit/${p.id}`)}>Edit</button>
