@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin:"https://inkspire-for-inspiring-writings-and-3gyl.onrender.com",
-  credentials:true,
-}))
+  origin: "*",        // allow all origins
+  credentials: true    // if you send cookies or auth headers
+}));
 
 
 // /api/auth
