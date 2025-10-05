@@ -6,6 +6,7 @@ const auth=require("../middlewares/auth");
 router.post("/toggle/:postId",auth,toggleLike);
 router.get("/:postId",getLikes);
 router.get("/hasLiked/:postId",auth,isLikedByUser);
+ 
 
 
 module.exports = router;
