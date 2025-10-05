@@ -16,9 +16,21 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+const allowedOrigins = [
+  'https://inkspire-for-inspiring-writings-and-ideas.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:3000',
+];
+
 app.use(cors({
-  origin: (origin, callback) => callback(null, true),        // allow all origins
-  credentials: true    // if you send cookies or auth headers
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'), false);
+    }
+  },
+  credentials: true,
 }));
 
 
