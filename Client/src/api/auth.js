@@ -1,24 +1,20 @@
 import axios from "axios"
 
-const API_URL = import.meta.env.VITE_API_BASE_URL+"/api/auth";  //baseurl 
+// FIX: Set the base URL to ONLY the Vercel variable (no prefixes added here)
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
-// const api = axios.create({   // Sets the base URL for all requests
-//     baseURL:API_URL,
-//     withCredentials:true
-// })
-
-export const signup=({username,email,password})=>{
+export const signup = ({ username, email, password }) => {
     return axios.post(
-        `${API_URL}/signup`,
+        `${API_BASE}/api/auth/signup`,
         { username, email, password },
-        {withCredentials:true}  //cookies
+        { withCredentials: true }
     )
 }
 
 export const login = ({ email, password }) => {
     return axios.post(
-        `${API_URL}/login`,
+        `${API_BASE}/api/auth/login`,
         { email, password },
-        { withCredentials: true }  //cookies
+        { withCredentials: true }
     )
 }
