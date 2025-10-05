@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api=axios.create({
-    baseURL: "https://inkspire-frontend.onrender.com"+"/api/post",
+    baseURL: "https://inkspire-for-inspiring-writings-and-gngz.onrender.com"+"/api/post",
     withCredentials:true,
 })
 
