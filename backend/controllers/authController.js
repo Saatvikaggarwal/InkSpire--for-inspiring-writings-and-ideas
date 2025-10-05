@@ -60,7 +60,7 @@ module.exports.postSignup=async function(req,res){
         res.status(400).json({message:"Signup Failed",error});
    }
       
-    console.log({ username, email, password });
+    // console.log({ username, email, password });
 }
 
 module.exports.postLogin=async function(req,res){
@@ -89,7 +89,7 @@ module.exports.postLogin=async function(req,res){
         res.json({user:{id:user.id,username:user.username,email}});
 
     }catch(error){
-        console.log(error);
+        // console.log(error);
         res.status(500).json({error:"Login Failed"});
     }
 }

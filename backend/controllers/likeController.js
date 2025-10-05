@@ -12,7 +12,7 @@ module.exports.isLikedByUser=async function(req,res){
 
         res.json({ liked: !!existing });
     } catch (err) {
-        console.error(err);
+        // console.error(err);
         res.status(500).json({ message: "Error checking like status" });
     }
 };
@@ -41,7 +41,7 @@ module.exports.toggleLike=async function(req,res){
         }
 
     } catch (err) {
-        console.error(err);
+        // console.error(err);
         res.status(402).json({ message: "Error toggling like" });
     }
 }
@@ -56,7 +56,7 @@ module.exports.getLikes=async function (req,res) {
 
     } 
     catch (err) {
-        console.error(err);
+        // console.error(err);
         res.status(500).json({ message: "Error fetching likes" });
     }
 }

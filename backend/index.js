@@ -43,18 +43,18 @@ app.get("/api/auth/me", async (req,res)=>{
           message: "Not Logged in user",
           user:null
       })
-      console.log(res.statusCode);
+      // console.log(res.statusCode);
   
       try{
           const tokenData = jwt.verify(token, process.env.JWT_SECRET);
-          console.log("Token Data", tokenData);
+          // console.log("Token Data", tokenData);
   
           const user=await prisma.user.findUnique({
               where:{id:tokenData.userId},
               select:{id:true,username:true},
           })
 
-          console.log(user);
+          // console.log(user);
           return res.status(200).json({
             message: "Logged in user",
             user: user

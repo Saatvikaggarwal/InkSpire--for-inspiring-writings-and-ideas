@@ -8,11 +8,11 @@ module.exports=function(req,res,next){
     if (!token) return res.status(404).json({
         message: "Authentication Failed"
     })
-    console.log(res.statusCode);
+    // console.log(res.statusCode);
 
     try{
         const tokenData = jwt.verify(token, process.env.JWT_SECRET);
-        console.log("Token Data", tokenData);
+        // console.log("Token Data", tokenData);
 
         req.userId = tokenData.userId;
 

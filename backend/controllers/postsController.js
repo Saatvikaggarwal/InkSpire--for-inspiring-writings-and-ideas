@@ -7,7 +7,7 @@ module.exports.createPost=async function (req,res) {
     const imgURL=req.file?.path;
 
 
-    console.log(imgURL);
+    // console.log(imgURL);
     try{
         // const { title, content } = req.body;
         // console.log()
@@ -107,7 +107,7 @@ module.exports.updatePost=async(req,res)=>{
         
         const id = Number(req.params.id);  //req.params.id is a string convert it to nuumber
         const { title, content } = req.body;
-        console.log(title,content);
+        // console.log(title,content);
         const updatePost= await prisma.post.update({
             where: {
                 id: id,
