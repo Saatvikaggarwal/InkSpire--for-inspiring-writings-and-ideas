@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL="http://localhost:4444/api/auth";  //baseurl 
+const API_URL="https://inkspire-for-inspiring-writings-and.onrender.com/api/auth";  //baseurl 
 
 // const api = axios.create({   // Sets the base URL for all requests
 //     baseURL:API_URL,
