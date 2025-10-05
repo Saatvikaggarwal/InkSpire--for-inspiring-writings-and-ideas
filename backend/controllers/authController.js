@@ -7,7 +7,6 @@ const prisma=new PrismaClient();
 module.exports.postSignup=async function(req,res){
    try{
        const { username, email, password } = req.body;
-       console.log( username, email, password );
     //    // Input validation
     //    if (!username || !email || !password) {
     //        return res.status(400).json({ message: "All fields are required" });
