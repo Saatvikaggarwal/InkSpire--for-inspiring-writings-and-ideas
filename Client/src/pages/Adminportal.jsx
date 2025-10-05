@@ -32,7 +32,7 @@ const Adminportal = () => {
 
   async function countLikes(postId) {
     try {
-      const res = await axios.get(import.meta.env.VITE_API_BASE_URL +`/api/like/${postId}`, {
+      const res = await axios.get("https://inkspire-frontend.onrender.com" +`/api/like/${postId}`, {
         withCredentials: true,
       });
       setLikeCounts((prev) => ({

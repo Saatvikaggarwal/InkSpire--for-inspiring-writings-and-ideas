@@ -4,7 +4,7 @@ export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         
-        baseUrl: import.meta.env.VITE_API_BASE_URL,
+        baseUrl: "https://inkspire-frontend.onrender.com",
 
         prepareHeaders: (headers, { getState }) => {
             return headers;

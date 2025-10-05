@@ -9,7 +9,7 @@ function AiBot() {
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false); // popup toggle
 
-    const API_URL = import.meta.env.VITE_API_BASE_URL +'/api/gemini';
+    const API_URL = "https://inkspire-frontend.onrender.com" +'/api/gemini';
 
     // 🔹 Helper to strip * and ** from responses
     const cleanResponse = (text) => {

@@ -17,10 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: [
-    'https://inkspire-for-inspiring-writings-and-ideas.vercel.app',
-    'https://ink-spire-for-inspiring-writings-an-steel.vercel.app'
-  ],
+  origin: "https://inkspire-frontend.onrender.com",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
