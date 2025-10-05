@@ -18,13 +18,23 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: [
+    // 1. PRIMARY STABLE DOMAINS
     'https://ink-spire-for-inspiring-writings-an-steel.vercel.app',
     'https://inkspire-for-inspiring-writings-and-ideas.vercel.app',
-    // Include any other deployment preview URLs Vercel may create
+
+    // 2. VERCEL PREVIEW/HYPHENATED DOMAINS (Safeguard against mismatches)
+    // You need to manually add the temporary domain Vercel may be using (e.g., the one that caused the previous error):
+    'https://inkspire-for-inspiring-writings-and-ideas-of7i.vercel.app',
+    'https://inkspire-for-inspiring-writings-and-ideas-git-master.vercel.app',
+
+    // 3. LOCAL DEVELOPMENT (Safe for testing)
+    'http://localhost:3000',
+    'http://localhost:5173',
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
+
 
 // /api/auth
 app.use("/api/auth",require("./routes/auth"));
