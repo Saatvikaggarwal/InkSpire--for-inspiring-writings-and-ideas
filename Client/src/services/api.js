@@ -3,67 +3,56 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_API_BASE_URL +"/api",
+        
+        baseUrl: import.meta.env.VITE_API_BASE_URL,
+
         prepareHeaders: (headers, { getState }) => {
-            // cookies sent automatically
             return headers;
         },
         credentials: 'include',
     }),
 
-    tagTypes: ['Post', 'User','Like'],  //use to make cache under the tags provided
+    tagTypes: ['Post', 'User', 'Like'],
     endpoints: (builder) => ({
-
-        // signup: builder.mutation({
-        //     query: (credentials) => ({ url: '/auth/signup', method: 'POST', body: credentials }),
-        //     invalidatesTags: ['User'],
-        // }),
-        // login: builder.mutation({
-        //     query: (credentials) => ({ url: '/auth/login', method: 'POST', body: credentials }),
-        //     invalidatesTags: ['User'],
-        // }),
-
+        
         fetchUser: builder.query({
-            query: () => '/auth/me',
+            query: () => '/api/auth/me',
             providesTags: ['User'],
         }),
-        
+
         fetchPosts: builder.query({
-            query: () => '/post',
+            query: () => '/api/post',
             providesTags: ['Post'],
         }),
 
-        fetchPostsByUserId: builder.query ({
-            query: ()=>`/post/user`,
-            providesTags:["Post"],
+        fetchPostsByUserId: builder.query({
+            query: () => `/api/post/user`,
+            providesTags: ["Post"],
         }),
 
         createPost: builder.mutation({
-            query: (formData) => ({ url: '/post', method: 'POST', body: formData }),
+            query: (formData) => ({ url: '/api/post', method: 'POST', body: formData }),
             invalidatesTags: ['Post'],
         }),
 
         editPost: builder.mutation({
-            query : ({id,title,content})=>({url: `/post/${id}`, method:"PUT", body :{title,content}}),
+            query: ({ id, title, content }) => ({ url: `/api/post/${id}`, method: "PUT", body: { title, content } }),
             invalidatesTags: ["Post"]
 
         }),
 
         deletePost: builder.mutation({
-            query: (id) => ({ url: `/post/${id}`, method: 'DELETE' }),
+            query: (id) => ({ url: `/api/post/${id}`, method: 'DELETE' }),
             invalidatesTags: ['Post'],
         }),
     }),
 });
 
 export const {
-    // useSignupMutation,
-    // useLoginMutation,
     useFetchUserQuery,
     useFetchPostsQuery,
     useFetchPostsByUserIdQuery,
     useCreatePostMutation,
     useDeletePostMutation,
     useEditPostMutation,
-         
 } = api;
