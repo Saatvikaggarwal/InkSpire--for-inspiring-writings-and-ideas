@@ -7,7 +7,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
 
-const { PrismaClient } = require("../backend/generated/prisma");
+const { PrismaClient } = require("./generated/prisma");
 const prisma = new PrismaClient();
 
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "*",        // allow all origins
+  origin: (origin, callback) => callback(null, true),        // allow all origins
   credentials: true    // if you send cookies or auth headers
 }));
 
