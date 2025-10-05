@@ -32,7 +32,7 @@ const Adminportal = () => {
 
   async function countLikes(postId) {
     try {
-      const res = await axios.get(`http://localhost:4444/api/like/${postId}`, {
+      const res = await axios.get(import.meta.env.VITE_API_BASE_URL +`/api/like/${postId}`, {
         withCredentials: true,
       });
       setLikeCounts((prev) => ({
