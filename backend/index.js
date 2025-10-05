@@ -16,23 +16,11 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-const allowedOrigins = [
-  'https://inkspire-for-inspiring-writings-and-ideas.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:3000',
-];
-
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'), false);
-    }
-  },
+  origin: 'https://inkspire-for-inspiring-writings-and-ideas.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
-
 
 // /api/auth
 app.use("/api/auth",require("./routes/auth"));
