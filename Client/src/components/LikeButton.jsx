@@ -10,7 +10,7 @@ const LikeButton = ({postId}) => {
     useEffect(() => {
         const fetchLiked = async () => {
             try {
-                const res = await axios.get(`http://localhost:4444/api/like/hasLiked/${postId}`, {
+                const res = await axios.get(`https://inkspire-for-inspiring-writings-and.onrender.com/api/like/hasLiked/${postId}`, {
                     withCredentials: true,
                 });
                 setLiked(res.data.liked);
@@ -25,7 +25,7 @@ const LikeButton = ({postId}) => {
         console.log("handle like");
 
         try {
-            const res = await axios.post(`http://localhost:4444/api/like/toggle/${postId}`, {}, {
+            const res = await axios.post(`https://inkspire-for-inspiring-writings-and.onrender.com/api/like/toggle/${postId}`, {}, {
                 withCredentials: true, 
             });
 
