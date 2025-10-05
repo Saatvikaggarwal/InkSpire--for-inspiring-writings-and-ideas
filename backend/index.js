@@ -17,7 +17,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "https://ink-spire-for-inspiring-writings-an-steel.vercel.app",
+  origin: [
+    'https://ink-spire-for-inspiring-writings-an-steel.vercel.app',
+    'https://inkspire-for-inspiring-writings-and-ideas.vercel.app',
+    // Include any other deployment preview URLs Vercel may create
+  ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
