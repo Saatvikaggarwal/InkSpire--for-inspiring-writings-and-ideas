@@ -12,6 +12,8 @@ import PublicRoute from './components/PublicRoute'
 import PrivateRoute from './components/PrivateRoute'
 import ShowPost from './pages/ShowPost'
 import AiBot from './components/AiBot'
+import SwitchAccount from './pages/SwitchAccount'
+
 
 
 
@@ -40,13 +42,14 @@ const App = () => {
           <Route path="/admin/new" element={<NewPost />} />
           <Route path="/admin/edit/:id" element={<EditPost />} />
           <Route path='/dashboard/show/:id' element={<ShowPost/>}/>
+          <Route path='/switchAccount' element={<SwitchAccount/>}></Route>
 
         </Route>
         
       </Routes>
 
       {user? <AiBot></AiBot>:""}
-      
+
     </div>
   )
 }

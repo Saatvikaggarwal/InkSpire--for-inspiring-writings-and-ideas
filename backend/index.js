@@ -67,6 +67,13 @@ app.get("/api/auth/me", async (req,res)=>{
       }
 })
 
+//logout
+
+app.post("/api/auth/logout", (req, res) => {
+  res.clearCookie("token"); // 'token' = your JWT cookie name
+  res.json({ message: "Logged out" });
+});
+
 app.listen(PORT, () => {
   console.log(`http://localhost:`+PORT);
 });

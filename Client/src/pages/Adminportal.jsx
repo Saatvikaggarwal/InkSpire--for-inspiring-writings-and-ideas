@@ -4,15 +4,46 @@ import {useDeletePostMutation, useFetchPostsByUserIdQuery, useFetchPostsQuery, u
 import Loader from '../components/Loader';
 import './Adminportal.css';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
+
 
 const Adminportal = () => {
   const navigate = useNavigate();
-  const [likeCnt,setLikeCnt]=useState(0); 
+  
   
   const { data: userResponse, isLoading: isUserLoading, isError: isUserError } = useFetchUserQuery();
   const username = userResponse.user.username;
 
   const { data, isLoading, isError } = useFetchPostsByUserIdQuery();
+
+
+  //for counting likes
+  const [likeCounts, setLikeCounts] = useState({});
+
+
+  useEffect(() => {
+    if (data) {
+      data.forEach((p) => {
+        countLikes(p.id);
+      });
+    }
+  }, [data]);
+
+  async function countLikes(postId) {
+    try {
+      const res = await axios.get(`http://localhost:4444/api/like/${postId}`, {
+        withCredentials: true,
+      });
+      setLikeCounts((prev) => ({
+        ...prev,
+        [postId]: res.data.likes,   // store likes for that post
+      }));
+    } catch (err) {
+      console.log("cannot fetch likes", err);
+    }
+  }
+
 
   const routeToPost = () => {
     navigate("/admin/new");
@@ -42,7 +73,7 @@ const Adminportal = () => {
               <div className='post-content'>
                 <span className="post-title">{p.title}</span>
                 {/* <span className="post-author">{p.author.username}</span> */}
-                <span> likes {likeCnt}</span>
+                <span> likes {likeCounts[p.id] || 0}</span>
               </div>
               <div className="btn-group">
                 <button className="edit-btn" onClick={() => navigate(`/admin/edit/${p.id}`)}>Edit</button>
