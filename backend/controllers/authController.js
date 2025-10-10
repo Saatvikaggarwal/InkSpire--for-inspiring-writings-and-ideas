@@ -84,7 +84,7 @@ module.exports.postLogin=async function(req,res){
 
         res.cookie('token', token, {
             httpOnly: true,      //makes cookie inaccessible to JS on client side
-            secure: process.env.NODE_ENV === 'development',   //sends cookie only over https 
+            secure: process.env.NODE_ENV === 'production',   //sends cookie only over https 
             sameSite: "lax",
             maxAge: 86400000,
         })
