@@ -44,49 +44,18 @@ app.use("/api/auth",require("./routes/auth"));
 app.use("/api/post",require("./routes/post"));
 
 // /api/gemini
-
 app.use("/api/gemini",require("./routes/gemini"));
 
 //  /api/like
-
 app.use("/api/like",require("./routes/like"));
 
-//fetch authentication using jwt
-
-app.get("/api/auth/me", async (req, res) => {
-  const token = req.cookies.token;
-  if (!token) return res.status(404).json({
-    message: "Not Logged in user",
-    user: null
-  })
-  console.log(res.statusCode);
-
-  try {
-    const tokenData = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Token Data", tokenData);
-
-    const user = await prisma.user.findUnique({
-      where: { id: tokenData.userId },
-      select: { id: true, username: true },
-    })
-
-    // console.log(user);
-    return res.status(200).json({
-      message: "Logged in user",
-      user: user
-    })
-
-  } catch (err) {
-    res.status(500).json({
-      msg: "error occured"
-    })
-  }
-})
-
-//logout
-app.post("/api/auth/logout", (req, res) => {
-  res.clearCookie("token"); // 'token' = your JWT cookie name
-  res.json({ message: "Logged out" });
+// Health check
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    message: 'Server is running',
+    timestamp: new Date().toISOString()
+  });
 });
 
 app.listen(PORT, () => {
