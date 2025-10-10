@@ -14,6 +14,7 @@ const SwitchAccount = () => {
         } catch (err) {
             console.error("Error switching account:", err);
         }
+        navigate("/login");
     };
 
     return (

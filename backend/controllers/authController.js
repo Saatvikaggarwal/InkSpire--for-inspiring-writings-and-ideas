@@ -128,6 +128,10 @@ module.exports.fetchLogin=async (req, res) => {
 }
 
 module.exports.logout = (req, res) => {
-    res.clearCookie("token"); // 'token' = your JWT cookie name
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // ✅ FIXED
+    }); // 'token' = your JWT cookie name
     res.json({ message: "Logged out" });
 }
