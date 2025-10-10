@@ -67,6 +67,7 @@ module.exports.postLogin=async function(req,res){
     try{
         const {email,password}=req.body;
         
+        
         const user=await prisma.user.findUnique({ where:{email}})
         if (!user) return res.status(404).json({error:"User not Found"});
         
@@ -79,9 +80,11 @@ module.exports.postLogin=async function(req,res){
             {expiresIn:"1d"}
         );
 
+        console.log(email,password);
+
         res.cookie('token', token, {
             httpOnly: true,      //makes cookie inaccessible to JS on client side
-            secure: process.env.NODE_ENV === 'production',   //sends cookie only over https 
+            secure: process.env.NODE_ENV === 'development',   //sends cookie only over https 
             sameSite: "lax",
             maxAge: 86400000,
         })

@@ -4,7 +4,7 @@ export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         
-        baseUrl: "https://inkspire-for-inspiring-writings-and-gngz.onrender.com",
+        baseUrl: "http://localhost:4444/api",
 
         prepareHeaders: (headers, { getState }) => {
             return headers;
@@ -12,39 +12,62 @@ export const api = createApi({
         credentials: 'include',
     }),
 
-    tagTypes: ['Post', 'User', 'Like'],
+    tagTypes: ['Post', 'User', 'Like','Gemini'],
     endpoints: (builder) => ({
         
         fetchUser: builder.query({
-            query: () => '/api/auth/me',
+            query: () => '/auth/me',
             providesTags: ['User'],
         }),
 
         fetchPosts: builder.query({
-            query: () => '/api/post',
+            query: () => '/post',
             providesTags: ['Post'],
         }),
 
         fetchPostsByUserId: builder.query({
-            query: () => `/api/post/user`,
+            query: () => `/post/user`,
             providesTags: ["Post"],
         }),
 
         createPost: builder.mutation({
-            query: (formData) => ({ url: '/api/post', method: 'POST', body: formData }),
+            query: (formData) => ({ url: '/post', method: 'POST', body: formData }),
             invalidatesTags: ['Post'],
         }),
 
         editPost: builder.mutation({
-            query: ({ id, title, content }) => ({ url: `/api/post/${id}`, method: "PUT", body: { title, content } }),
+            query: ({ id, title, content }) => ({ url: `/post/${id}`, method: "PUT", body: { title, content } }),
             invalidatesTags: ["Post"]
 
         }),
 
         deletePost: builder.mutation({
-            query: (id) => ({ url: `/api/post/${id}`, method: 'DELETE' }),
+            query: (id) => ({ url: `/post/${id}`, method: 'DELETE' }),
             invalidatesTags: ['Post'],
         }),
+
+        fetchGemini: builder.mutation({
+            query: ({prompt})=>({url:"/gemini", method:"POST", body:{prompt}}),
+            invalidatesTags: ['Gemini'],
+        }),
+
+        fetchHasLiked: builder.query({
+            query: (postId) => `/like/hasLiked/${postId}`,
+            providesTags: ['Like']
+        }),
+
+        toggleLike: builder.mutation({
+            query: (postId) => ({ url: `/like/toggle/${postId}`, method: "POST",body: {}}),
+            invalidatesTags: ['Like'],
+        }),
+
+        fetchLikeCount: builder.query({
+            query: (postId) => `/like/${postId}`,
+            providesTags: ['Like']
+        }),
+
+
+
     }),
 });
 
@@ -55,4 +78,9 @@ export const {
     useCreatePostMutation,
     useDeletePostMutation,
     useEditPostMutation,
+    useFetchGeminiMutation,
+    useFetchHasLikedQuery,
+    useFetchLikeCountQuery,
+    useToggleLikeMutation,
+
 } = api;

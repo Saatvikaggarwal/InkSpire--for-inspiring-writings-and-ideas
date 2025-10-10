@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './AiBot.css';
+import { useFetchGeminiMutation } from '../services/api';
 
 function AiBot() {
     const [prompt, setPrompt] = useState('');
@@ -9,7 +10,8 @@ function AiBot() {
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false); // popup toggle
 
-    const API_URL = "https://inkspire-for-inspiring-writings-and-gngz.onrender.com" +'/api/gemini';
+    // const API_URL = "http://localhost:4444" +'/api/gemini';
+    const [geminiRes]=useFetchGeminiMutation();
 
     // 🔹 Helper to strip * and ** from responses
     const cleanResponse = (text) => {
@@ -25,7 +27,7 @@ function AiBot() {
         setResponse('Thinking...');
 
         try {
-            const res = await axios.post(API_URL, { prompt });
+            const res = await geminiRes({ prompt });
             setResponse(cleanResponse(res.data.generatedText));
         } catch (error) {
             console.error('Error:', error);

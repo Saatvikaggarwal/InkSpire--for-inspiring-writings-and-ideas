@@ -1,88 +1,102 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useDeletePostMutation, useFetchPostsByUserIdQuery, useFetchPostsQuery, useFetchUserQuery } from '../services/api';
+import {
+  useDeletePostMutation,
+  useFetchPostsByUserIdQuery,
+  useFetchUserQuery,
+} from '../services/api';
 import Loader from '../components/Loader';
-import './Adminportal.css';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import axios from 'axios';
-
+import './Adminportal.css';
 
 const Adminportal = () => {
   const navigate = useNavigate();
-  
-  
-  const { data: userResponse, isLoading: isUserLoading, isError: isUserError } = useFetchUserQuery();
-  const username = userResponse.user.username;
 
-  const { data, isLoading, isError } = useFetchPostsByUserIdQuery();
+  // Fetch logged-in user
+  const {
+    data: userResponse,
+    isLoading: isUserLoading,
+    isError: isUserError,
+  } = useFetchUserQuery();
 
+  // Fetch posts of the logged-in user
+  const {
+    data: posts,
+    isLoading,
+    isError,
+  } = useFetchPostsByUserIdQuery();
 
-  //for counting likes
   const [likeCounts, setLikeCounts] = useState({});
-
+  const [delPost] = useDeletePostMutation();
 
   useEffect(() => {
-    if (data) {
-      data.forEach((p) => {
-        countLikes(p.id);
-      });
+    if (posts) {
+      posts.forEach((p) => countLikes(p.id));
     }
-  }, [data]);
+  }, [posts]);
 
+  // Fetch likes via axios (can't use hooks inside functions)
   async function countLikes(postId) {
     try {
-      const res = await axios.get("https://inkspire-for-inspiring-writings-and-gngz.onrender.com" +`/api/like/${postId}`, {
+      const res = await axios.get(`http://localhost:4444/api/like/${postId}`, {
         withCredentials: true,
       });
       setLikeCounts((prev) => ({
         ...prev,
-        [postId]: res.data.likes,   // store likes for that post
+        [postId]: res.data.likes || 0,
       }));
     } catch (err) {
-      console.log("cannot fetch likes", err);
+      console.error('Error fetching likes for post:', postId, err);
     }
   }
 
-
   const routeToPost = () => {
-    navigate("/admin/new");
+    navigate('/admin/new');
   };
 
-  const [delPost]=useDeletePostMutation();
-  async function deletePost(id){
-    try{
+  async function deletePost(id) {
+    try {
       await delPost(id);
+    } catch (err) {
+      console.error('Error deleting post:', err);
     }
-    catch(err){
-      console.log(err);
-    }
+  }
+
+  if (isUserLoading || isLoading) {
+    return (
+      <div className="loader-wrapper">
+        <Loader />
+      </div>
+    );
   }
 
   return (
     <div className="admin-container">
-      {/* <h4 className='post-author'>{username}</h4> */}
-      <button className="new-btn" onClick={routeToPost}>+ New Post</button>
-      
-      {isLoading ? (
-        <div className="loader-wrapper"><Loader /></div>
-      ) : (
-        <ul className="post-list">
-          {data?.map((p) => (
-            <li key={p.id} className="post-item">
-              <div className='post-content'>
-                <span className="post-title">{p.title}</span>
-                {/* <span className="post-author">{p.author.username}</span> */}
-                <span> likes {likeCounts[p.id] || 0}</span>
-              </div>
-              <div className="btn-group">
-                <button className="edit-btn" onClick={() => navigate(`/admin/edit/${p.id}`)}>Edit</button>
-                <button className="delete-btn" onClick={()=>deletePost(p.id)} >Delete</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <button className="new-btn" onClick={routeToPost}>
+        + New Post
+      </button>
+
+      <ul className="post-list">
+        {posts?.map((p) => (
+          <li key={p.id} className="post-item">
+            <div className="post-content">
+              <span className="post-title">{p.title}</span>
+              <span>Likes: {likeCounts[p.id] || 0}</span>
+            </div>
+            <div className="btn-group">
+              <button
+                className="edit-btn"
+                onClick={() => navigate(`/admin/edit/${p.id}`)}
+              >
+                Edit
+              </button>
+              <button className="delete-btn" onClick={() => deletePost(p.id)}>
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

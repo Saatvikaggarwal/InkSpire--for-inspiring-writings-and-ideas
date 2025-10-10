@@ -1,7 +1,7 @@
 import axios from "axios"
 
 // FIX: Set the base URL to ONLY the Vercel variable (no prefixes added here)
-const API_BASE = "https://inkspire-for-inspiring-writings-and-gngz.onrender.com";
+const API_BASE = "http://localhost:4444";
 
 export const signup = ({ username, email, password }) => {
     return axios.post(

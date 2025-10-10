@@ -9,7 +9,7 @@ const SwitchAccount = () => {
     const handleSwitchAccount = async () => {
         console.log("switching account");
         try {
-            await axios.post(import.meta.env.VITE_API_BASE_URL+"/api/auth/logout", {}, { withCredentials: true });
+            await axios.post("http://localhost:4444"+"/api/auth/logout", {}, { withCredentials: true });
             window.location.reload(); // refresh the page
         } catch (err) {
             console.error("Error switching account:", err);

@@ -1,54 +1,37 @@
-import axios from 'axios';
-import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useFetchHasLikedQuery, useToggleLikeMutation } from '../services/api';
 import './LikeButton.css';
 
-const LikeButton = ({postId}) => {
-    const [liked,setLiked]=useState(false);
+const LikeButton = ({ postId }) => {
+    const { data: likedData, isLoading } = useFetchHasLikedQuery(postId);
+    const [toggleLike] = useToggleLikeMutation();
+    const [liked, setLiked] = useState(false);
 
+    // Sync local state with server response
     useEffect(() => {
-        const fetchLiked = async () => {
-            try {
-                const res = await axios.get("https://inkspire-for-inspiring-writings-and-gngz.onrender.com"+`/api/like/hasLiked/${postId}`, {
-                    withCredentials: true,
-                });
-                setLiked(res.data.liked);
-            } catch (err) {
-                console.error("Error fetching liked status:", err);
-            }
-        };
-        fetchLiked();
-    }, [postId]);
+        if (likedData) {
+            setLiked(likedData.liked);
+        }
+    }, [likedData]);
 
     const handleLike = async () => {
-        console.log("handle like");
-
         try {
-            const res = await axios.post("https://inkspire-for-inspiring-writings-and-gngz.onrender.com"+`/api/like/toggle/${postId}`, {}, {
-                withCredentials: true, 
-            });
-
-            if (res.data.liked) {
-                setLiked(true);
-                // setLikes((prev) => prev + 1);
-            } else {
-                setLiked(false);
-                // setLikes((prev) => prev - 1);
-            }
+            const res = await toggleLike(postId).unwrap();
+            setLiked(res.liked);  // Update instantly from backend response
         } catch (err) {
             console.error("Error toggling like:", err);
         }
     };
+
+    if (isLoading) return null;
 
     return (
         <div className="like-button" onClick={handleLike}>
             <span className={`heart ${liked ? "liked" : ""}`}>
                 {liked ? "❤️" : "🤍"}
             </span>
-            {/* <span className="like-count">{likes}</span> */}
         </div>
     );
-}
+};
 
-export default LikeButton
+export default LikeButton;
