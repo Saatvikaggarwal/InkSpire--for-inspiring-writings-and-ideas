@@ -7,14 +7,28 @@ const SwitchAccount = () => {
     const navigate = useNavigate();
 
     const handleSwitchAccount = async () => {
-        console.log("switching account");
+        console.log("Switching account...");
         try {
-            await axios.post("https://inkspire-for-inspiring-writings-and-gngz.onrender.com"+"/api/auth/logout", {}, { withCredentials: true });
-            window.location.reload(); // refresh the page
+            // Remove the string concatenation, use template literal or direct URL
+            const response = await axios.post(
+                "https://inkspire-for-inspiring-writings-and-gngz.onrender.com/api/auth/logout",
+                {},
+                {
+                    withCredentials: true
+                }
+            );
+
+            console.log("Logout successful:", response.data);
+
+            //  Navigate first, then reload if needed
+            navigate("/login");
+
         } catch (err) {
             console.error("Error switching account:", err);
+
+            // Even if logout fails, still navigate to login
+            navigate("/login");
         }
-        navigate("/login");
     };
 
     return (
