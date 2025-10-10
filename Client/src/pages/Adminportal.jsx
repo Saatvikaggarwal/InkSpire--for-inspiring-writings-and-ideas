@@ -38,7 +38,7 @@ const Adminportal = () => {
   // Fetch likes via axios (can't use hooks inside functions)
   async function countLikes(postId) {
     try {
-      const res = await axios.get(`http://localhost:4444/api/like/${postId}`, {
+      const res = await axios.get(`https://inkspire-for-inspiring-writings-and-gngz.onrender.com/api/like/${postId}`, {
         withCredentials: true,
       });
       setLikeCounts((prev) => ({
