@@ -4,7 +4,7 @@ export const api = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         
-        baseUrl: "http://localhost:4444/api",
+        baseUrl: "https://inkspire-for-inspiring-writings-and-gngz.onrender.com/api",
 
         prepareHeaders: (headers, { getState }) => {
             return headers;

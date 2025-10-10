@@ -21,7 +21,7 @@ app.use(cors({
     // 1. PRIMARY STABLE DOMAINS
     'https://ink-spire-for-inspiring-writings-an-steel.vercel.app',
     'https://inkspire-for-inspiring-writings-and-ideas.vercel.app',
-
+    'https://ink-spire-for-inspiring-wr-git-b6b283-saatvikaggarwals-projects.vercel.app',
     // // 2. VERCEL PREVIEW/HYPHENATED DOMAINS (Safeguard against mismatches)
     // // You need to manually add the temporary domain Vercel may be using (e.g., the one that caused the previous error):
     // 'https://inkspire-for-inspiring-writings-and-ideas-of7i.vercel.app',

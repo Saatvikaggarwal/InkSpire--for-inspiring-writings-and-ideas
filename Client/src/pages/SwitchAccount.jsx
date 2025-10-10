@@ -9,7 +9,7 @@ const SwitchAccount = () => {
     const handleSwitchAccount = async () => {
         console.log("switching account");
         try {
-            await axios.post("http://localhost:4444"+"/api/auth/logout", {}, { withCredentials: true });
+            await axios.post("https://inkspire-for-inspiring-writings-and-gngz.onrender.com"+"/api/auth/logout", {}, { withCredentials: true });
             window.location.reload(); // refresh the page
         } catch (err) {
             console.error("Error switching account:", err);
