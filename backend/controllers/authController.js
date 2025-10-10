@@ -43,7 +43,7 @@ module.exports.postSignup=async function(req,res){
         res.cookie('token',token,{
             httpOnly:true,      //makes cookie inaccessible to JS on client side
             secure: process.env.NODE_ENV==='production',   //sends cookie only over https 
-            sameSite:"lax",
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 86400000,
         })
 
@@ -85,7 +85,7 @@ module.exports.postLogin=async function(req,res){
         res.cookie('token', token, {
             httpOnly: true,      //makes cookie inaccessible to JS on client side
             secure: process.env.NODE_ENV === 'production',   //sends cookie only over https 
-            sameSite: "lax",
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 86400000,
         })
 
